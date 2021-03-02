@@ -23,6 +23,9 @@
         </ul>
     </li>
     <li>
+        <a href="#links">Полезные ссылки</a>
+    </li>
+    <li>
         <a href="#contact">Контакты</a>
     </li>
 </ul>
@@ -109,6 +112,19 @@
 
 <h2><a name="usage">Использование</a>&nbsp;&nbsp;<a href="#menu">&#9650;</a></h2>
 <h3><a name=""></a>&nbsp;&nbsp;<a href="#menu">&#9650;</a></h3>
+
+<h2><a name="links">Полезные ссылки</a>&nbsp;&nbsp;<a href="#menu">&#9650;</a></h2>
+<p>Ресурсы которые были полезны при создании проекта</p>
+<ul>
+    <li>
+        <strong><a href="http://akorsa.ru/2016/10/kak-logirovat-hibernate-ispolzuem-pravilnuyu-konfiguratsiyu/">link</a></strong>
+        - настройка логирования Hibernate
+    </li>
+    <!--<li>
+        <strong><a href="">link</a></strong>
+        - настройка логирования Hibernate
+    </li>-->
+</ul>
 
 <h2><a name="contact">Контакты</a>&nbsp;&nbsp;<a href="#menu">&#9650;</a></h2>
 <p>Связаться со мной по всем интересующим вопросам вы можете здесь:</p>

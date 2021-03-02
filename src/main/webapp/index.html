@@ -20,11 +20,11 @@
 <div class="container">
     <div class="center-align main-settings">
         <label>
-            <input type="checkbox" />
+            <input type="checkbox" class="js-show-all-task">
             <span class="todo-description">показывать завершенные задачи</span>
         </label>
     </div>
-    <div class="js-todo-list-container todo-list-container row">
+    <div class="js-todo-list-container-all todo-list-container row" style="display: none;">
         <div class="col s6">
             <h5 class="center-align">сделать</h5>
             <div class="card">
@@ -110,7 +110,7 @@
             </div>
         </div>
     </div>
-    <div class="js-todo-list-container todo-list-container row">
+    <div class="js-todo-list-container-main todo-list-container row">
         <h5 class="center-align">сделать</h5>
         <div class="col s8 offset-s2 card">
             <table>
@@ -173,5 +173,6 @@
 </div>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script type="text/javascript" src="js/materialize.min.js"></script>
+<script type="text/javascript" src="js/task.js"></script>
 </body>
 </html>
