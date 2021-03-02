@@ -1,0 +1,42 @@
+.page-title {
+    display: flex;
+    justify-content: center;
+}
+
+.todo-list-container {
+    margin-top: 8px;
+}
+
+.todo-form-container .card-content {
+    padding: 12px 12px 0 12px;
+}
+
+.todo-form-container .card-action {
+    padding: 12px;
+}
+
+.todo-form-container .card-title {
+    font-size: 18px;
+}
+
+.todo-form-container .card-content .row {
+    margin-bottom: 0;
+}
+
+.todo-list-container td {
+    padding: 10px 10px;
+}
+
+.todo-list-container .btn-delete {
+    font-size: 40px;
+    line-height: 24px;
+    transform: rotate(45deg);
+}
+
+.todo-description {
+    color: rgba(0, 0, 0, 0.87);
+}
+
+.main-settings {
+    margin-top: 5px;
+}
