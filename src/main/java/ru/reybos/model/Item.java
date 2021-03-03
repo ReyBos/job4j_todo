@@ -13,7 +13,7 @@ public class Item implements Serializable {
     private int id;
     private String description;
     private Timestamp created = new Timestamp(System.currentTimeMillis());
-    private boolean done;
+    private Boolean done;
 
     public Item() {
     }
@@ -60,7 +60,7 @@ public class Item implements Serializable {
         this.created = created;
     }
 
-    public boolean isDone() {
+    public Boolean isDone() {
         return done;
     }
 
