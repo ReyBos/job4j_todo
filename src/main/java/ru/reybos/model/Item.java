@@ -1,12 +1,13 @@
 package ru.reybos.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
 @Table(name = "item")
-public class Item {
+public class Item implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -15,6 +16,19 @@ public class Item {
     private boolean done;
 
     public Item() {
+    }
+
+    public Item(int id) {
+        this.id = id;
+    }
+
+    public Item(String description) {
+        this.description = description;
+    }
+
+    public Item(int id, boolean done) {
+        this.id = id;
+        this.done = done;
     }
 
     public Item(String description, boolean done) {

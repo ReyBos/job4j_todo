@@ -10,10 +10,17 @@ import ru.reybos.model.Item;
 import java.util.List;
 
 public class HbmStore implements Store, AutoCloseable {
+    private static final Store INST = new HbmStore();
     private final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
             .configure().build();
     private final SessionFactory sf = new MetadataSources(registry)
             .buildMetadata().buildSessionFactory();
+
+    private HbmStore() { }
+
+    public static Store instOf() {
+        return INST;
+    }
 
     @Override
     public List<Item> findAllItem() {
@@ -54,32 +61,34 @@ public class HbmStore implements Store, AutoCloseable {
     }
 
     @Override
-    public Item save(Item item) {
+    public boolean save(Item item) {
         Session session = sf.openSession();
         session.beginTransaction();
         session.save(item);
         session.getTransaction().commit();
         session.close();
-        return item;
+        return true;
     }
 
     @Override
-    public void delete(int id) {
-        Item item = findItemById(id);
+    public boolean delete(Item userItem) {
+        Item item = findItemById(userItem.getId());
         Session session = sf.openSession();
         session.beginTransaction();
         session.delete(item);
         session.getTransaction().commit();
         session.close();
+        return true;
     }
 
     @Override
-    public void update(Item item) {
+    public boolean update(Item item) {
         Session session = sf.openSession();
         session.beginTransaction();
         session.update(item);
         session.getTransaction().commit();
         session.close();
+        return true;
     }
 
     @Override
