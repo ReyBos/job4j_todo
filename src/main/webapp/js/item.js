@@ -12,11 +12,15 @@ $(".js-add-todo-item").click(function () {
         contentType: "application/json",
         data: JSON.stringify(data),
     }).done(function(data) {
-        let doneItems = JSON.parse(data.doneItems);
-        let undoneItems = JSON.parse(data.undoneItems);
-        console.log(doneItems);
-        console.log(undoneItems);
-    }).fail(function(err){
-        console.log(err);
+        showItems(data)
+        refreshItemAddForm();
+    }).fail(function(err) {
+        $(".js-modal-msg").text("Ошибка при изменении элемента, перезагрузите страницу или повторите запрос позднее.");
+        let instance = M.Modal.getInstance($(".js-modal"));
+        instance.open();
     });
 })
+
+function refreshItemAddForm() {
+    $(".js-item-description").val("");
+}

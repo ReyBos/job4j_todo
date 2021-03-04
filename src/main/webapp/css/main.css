@@ -40,3 +40,7 @@
 .main-settings {
     margin-top: 5px;
 }
+
+.modal-custom div.modal-content {
+    padding-bottom: 0;
+}

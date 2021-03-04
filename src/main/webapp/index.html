@@ -31,7 +31,7 @@
                 <table>
                     <tbody class="js-undone-items">
                         <tr>
-                            <td class="center-align">Список дел пуст</td>
+                            <td class="center-align">список пуст</td>
                         </tr>
                     </tbody>
                 </table>
@@ -43,7 +43,7 @@
                 <table>
                     <tbody class="js-done-items">
                         <tr>
-                            <td class="center-align">Список дел пуст</td>
+                            <td class="center-align">список пуст</td>
                         </tr>
                     </tbody>
                 </table>
@@ -56,7 +56,7 @@
             <table>
                 <tbody class="js-undone-items">
                     <tr>
-                        <td class="center-align">Список дел пуст</td>
+                        <td class="center-align">список пуст</td>
                     </tr>
                 </tbody>
             </table>
@@ -81,9 +81,22 @@
         </div>
     </div>
 </div>
+<div id="modal1" class="modal js-modal modal-custom">
+    <div class="modal-content js-modal-content">
+        <p class="js-modal-msg center-align"></p>
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class="modal-close waves-effect waves-green btn-flat">Ok</a>
+    </div>
+</div>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script type="text/javascript" src="js/materialize.min.js"></script>
 <script type="text/javascript" src="js/item.js"></script>
 <script type="text/javascript" src="js/list.js"></script>
+<script>
+    $(document).ready(function(){
+        $('.js-modal').modal();
+    });
+</script>
 </body>
 </html>

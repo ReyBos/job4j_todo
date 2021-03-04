@@ -7,22 +7,28 @@ function getListItems() {
         type: "GET",
         url: "list"
     }).done(function(data) {
-        let doneItems = JSON.parse(data.doneItems);
-        let undoneItems = JSON.parse(data.undoneItems);
-        let doneItemsStr = drawItems(doneItems);
-        $(".js-done-items").html(doneItemsStr);
-        let undoneItemsStr = drawItems(undoneItems);
-        $(".js-undone-items").html(undoneItemsStr);
-    }).fail(function(err){
-        console.log(err);
+        showItems(data)
+    }).fail(function(err) {
+        $(".js-modal-msg").text("Ошибка загрузки списка, перезагрузите страницу или повторите запрос позднее.");
+        let instance = M.Modal.getInstance($(".js-modal"));
+        instance.open();
     });
+}
+
+function showItems(data) {
+    let doneItems = JSON.parse(data.doneItems);
+    let undoneItems = JSON.parse(data.undoneItems);
+    let doneItemsStr = drawItems(doneItems);
+    $(".js-done-items").html(doneItemsStr);
+    let undoneItemsStr = drawItems(undoneItems);
+    $(".js-undone-items").html(undoneItemsStr);
 }
 
 function drawItems(items) {
     let rsl = "";
     if (items.length === 0) {
         rsl += "<tr>" +
-                    "<td class=\"center-align\">Список дел пуст</td>" +
+                    "<td class=\"center-align\">список пуст</td>" +
                 "</tr>";
     } else {
         items.forEach(function(item, i, arr) {
