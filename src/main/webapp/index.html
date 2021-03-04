@@ -20,7 +20,7 @@
 <div class="container">
     <div class="center-align main-settings">
         <label>
-            <input type="checkbox" class="js-show-all-task">
+            <input type="checkbox" class="items js-show-all-task">
             <span class="todo-description">показывать завершенные задачи</span>
         </label>
     </div>
@@ -29,40 +29,10 @@
             <h5 class="center-align">сделать</h5>
             <div class="card">
                 <table>
-                    <tbody>
-                    <tr>
-                        <td>
-                            <label>
-                                <input type="checkbox" />
-                                <span class="todo-description">Выучить Java</span>
-                            </label>
-                        </td>
-                        <td class="right-align">
-                            <a class="btn-floating btn-small waves-effect waves-light btn-delete">+</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label>
-                                <input type="checkbox" />
-                                <span class="todo-description">Выучить PHP</span>
-                            </label>
-                        </td>
-                        <td class="right-align">
-                            <a class="btn-floating btn-small waves-effect waves-light btn-delete">+</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label>
-                                <input type="checkbox" />
-                                <span class="todo-description">Выучить JavaScript</span>
-                            </label>
-                        </td>
-                        <td class="right-align">
-                            <a class="btn-floating btn-small waves-effect waves-light btn-delete">+</a>
-                        </td>
-                    </tr>
+                    <tbody class="js-undone-items">
+                        <tr>
+                            <td class="center-align">Список дел пуст</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -71,40 +41,10 @@
             <h5 class="center-align">сделано</h5>
             <div class="card">
                 <table>
-                    <tbody>
-                    <tr>
-                        <td>
-                            <label>
-                                <input type="checkbox" />
-                                <span class="todo-description">Выучить Java</span>
-                            </label>
-                        </td>
-                        <td class="right-align">
-                            <a class="btn-floating btn-small waves-effect waves-light btn-delete">+</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label>
-                                <input type="checkbox" />
-                                <span class="todo-description">Выучить PHP</span>
-                            </label>
-                        </td>
-                        <td class="right-align">
-                            <a class="btn-floating btn-small waves-effect waves-light btn-delete">+</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label>
-                                <input type="checkbox" />
-                                <span class="todo-description">Выучить JavaScript</span>
-                            </label>
-                        </td>
-                        <td class="right-align">
-                            <a class="btn-floating btn-small waves-effect waves-light btn-delete">+</a>
-                        </td>
-                    </tr>
+                    <tbody class="js-done-items">
+                        <tr>
+                            <td class="center-align">Список дел пуст</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -114,40 +54,10 @@
         <h5 class="center-align">сделать</h5>
         <div class="col s8 offset-s2 card">
             <table>
-                <tbody>
-                <tr>
-                    <td>
-                        <label>
-                            <input type="checkbox" />
-                            <span class="todo-description">Выучить Java</span>
-                        </label>
-                    </td>
-                    <td class="right-align">
-                        <a class="btn-floating btn-small waves-effect waves-light btn-delete">+</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label>
-                            <input type="checkbox" />
-                            <span class="todo-description">Выучить PHP</span>
-                        </label>
-                    </td>
-                    <td class="right-align">
-                        <a class="btn-floating btn-small waves-effect waves-light btn-delete">+</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label>
-                            <input type="checkbox" />
-                            <span class="todo-description">Выучить JavaScript</span>
-                        </label>
-                    </td>
-                    <td class="right-align">
-                        <a class="btn-floating btn-small waves-effect waves-light btn-delete">+</a>
-                    </td>
-                </tr>
+                <tbody class="js-undone-items">
+                    <tr>
+                        <td class="center-align">Список дел пуст</td>
+                    </tr>
                 </tbody>
             </table>
         </div>
@@ -158,8 +68,8 @@
             <div class="card-content">
                 <div class="row">
                     <div class="input-field col s12">
-                        <textarea placeholder="" id="description" name="description" class="materialize-textarea" rows="2"></textarea>
-                        <label class="" for="description">описание</label>
+                        <textarea placeholder="" id="item-description" name="item-description" class="materialize-textarea js-item-description" rows="2"></textarea>
+                        <label class="" for="item-description">описание</label>
                     </div>
                 </div>
                 <div class="row">
@@ -173,6 +83,7 @@
 </div>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script type="text/javascript" src="js/materialize.min.js"></script>
-<script type="text/javascript" src="js/task.js"></script>
+<script type="text/javascript" src="js/item.js"></script>
+<script type="text/javascript" src="js/list.js"></script>
 </body>
 </html>

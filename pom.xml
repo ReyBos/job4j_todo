@@ -19,7 +19,7 @@
     <profile>
       <id>test</id>
       <properties>
-        <db.url>jdbc:postgresql://127.0.0.1:5432/job4j_todo</db.url>
+        <db.url>jdbc:postgresql://127.0.0.1:5432/job4j_todo_test</db.url>
         <db.username>postgres</db.username>
         <db.password>password</db.password>
         <db.driver>org.postgresql.Driver</db.driver>
@@ -40,7 +40,7 @@
         <activeByDefault>true</activeByDefault>
       </activation>
       <properties>
-        <db.url>jdbc:postgresql://localhost/job4j_todo</db.url>
+        <db.url>jdbc:postgresql://localhost/job4j_todo_test</db.url>
         <db.username>postgres</db.username>
         <db.password></db.password>
         <db.driver>org.postgresql.Driver</db.driver>

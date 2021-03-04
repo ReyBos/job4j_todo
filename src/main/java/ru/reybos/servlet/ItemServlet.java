@@ -30,12 +30,11 @@ public class ItemServlet extends HttpServlet {
         Item item = new Gson().fromJson(req.getReader(), Item.class);
         resp.setCharacterEncoding("UTF-8");
         PrintWriter writer = new PrintWriter(resp.getOutputStream());
-        if (!service.execute(action, item)) {
-            writer.write("Ошибка изменения элемента");
-            resp.setStatus(500);
-        } else {
-            writer.write("Элемент изменен успешно");
+        if (service.execute(action, item)) {
+            resp.sendRedirect(req.getContextPath() + "/list");
         }
+        writer.write("Ошибка изменения элемента");
+        resp.setStatus(500);
         writer.flush();
     }
 }

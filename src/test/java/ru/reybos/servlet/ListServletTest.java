@@ -28,9 +28,9 @@ import static org.mockito.Mockito.when;
 
 @PowerMockIgnore({"com.sun.org.apache.xerces.*", "javax.xml.*", "org.xml.*", "org.hibernate.*"})
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({HbmStore.class, TodoListServlet.class})
-public class TodoListServletTest {
-    private static final Logger LOG = LoggerFactory.getLogger(TodoListServletTest.class.getName());
+@PrepareForTest({HbmStore.class, ListServlet.class})
+public class ListServletTest {
+    private static final Logger LOG = LoggerFactory.getLogger(ListServletTest.class.getName());
 
     @Test
     public void getItems() throws Exception {
@@ -54,7 +54,7 @@ public class TodoListServletTest {
         PowerMockito.whenNew(PrintWriter.class).withAnyArguments().thenReturn(writer);
         when(resp.getOutputStream()).thenReturn(out);
 
-        new TodoListServlet().doPost(req, resp);
+        new ListServlet().doGet(req, resp);
 
         TodoListService service = new TodoListService(store);
         assertThat(stringWriter.toString(), is(service.getAllItems()));

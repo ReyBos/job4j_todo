@@ -14,14 +14,14 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet("/todo/list")
-public class TodoListServlet extends HttpServlet {
+@WebServlet("/list")
+public class ListServlet extends HttpServlet {
     private static final Logger LOG = LoggerFactory.getLogger(ItemServlet.class.getName());
     private final Store store = HbmStore.instOf();
     private final TodoListService service = new TodoListService(store);
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         String items = service.getAllItems();
         resp.setContentType("application/json");
