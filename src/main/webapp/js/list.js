@@ -35,12 +35,12 @@ function drawItems(items) {
             rsl +=  "<tr>" +
                         "<td>" +
                             "<label>" +
-                                "<input type=\"checkbox\" data-item-id='" + item.id + "'  data-item-done=" + item.done + ">" +
+                                "<input class=\"js-change-item-status\" type=\"checkbox\" data-item-id='" + item.id + "'  data-item-done=" + item.done + " " + (item.done ? "checked" : "") + ">" +
                                 "<span class=\"todo-description\">" + item.description + "</span>" +
                             "</label>" +
                         "</td>" +
                         "<td class=\"right-align\">" +
-                            "<a data-item-id='" + item.id + "' class=\"btn-floating btn-small waves-effect waves-light btn-delete\">+</a>" +
+                            "<a data-item-id='" + item.id + "' class=\"btn-floating btn-small waves-effect waves-light btn-delete js-item-delete\">+</a>" +
                         "</td>" +
                     "</tr>";
         });

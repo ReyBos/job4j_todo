@@ -30,13 +30,13 @@ public class HbmStore implements Store, AutoCloseable {
 
     @Override
     public List<Item> findDoneItems() {
-        String sql = "FROM ru.reybos.model.Item WHERE done=true";
+        String sql = "FROM ru.reybos.model.Item WHERE done=true ORDER BY created";
         return findItemsByQuery(sql);
     }
 
     @Override
     public List<Item> findUndoneItems() {
-        String sql = "FROM ru.reybos.model.Item WHERE done=false";
+        String sql = "FROM ru.reybos.model.Item WHERE done=false ORDER BY created";
         return findItemsByQuery(sql);
     }
 
