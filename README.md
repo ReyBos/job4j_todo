@@ -19,7 +19,9 @@
     <li>
         <a href="#usage">Использование</a>
         <ul>
-            <li><a href=""></a></li>
+            <li><a href="#main_page">Главная</a></li>
+            <li><a href="#item_status">Изменение статуса задачи</a></li>
+            <li><a href="#item_notification">Оповещения об ошибках</a></li>
         </ul>
     </li>
     <li>
@@ -36,7 +38,9 @@
     Проект для изучения Java EE.
 </p>
 <p>
-    Это приложение - список дел.
+    Это приложение - список дел. У пользователя есть возможность добавлять задачи в свой список дел. Завершенную задачу можно отметить как выполненную
+    и она пропадет из списка к выполнению. Для удобства пользователя есть возможность отобразить завершенные задачи, вернуть задачу в список активных задач,
+    а также удалить не нужные.
 </p>
 
 <h4><a name="technologies">Технологии</a>&nbsp;&nbsp;<a href="#menu">&#9650;</a></h4>
@@ -44,7 +48,7 @@
     <li>Java 14</li>
     <li>Java EE Servlets</li>
     <li>PostgreSQL, Hibernate, Liquibase</li>
-    <li>JUnit</li>
+    <li>JUnit, Mockito, PowerMock</li>
     <li>Maven, Tomcat</li>
     <li>HTML, JavaScript, jQuery, JSON</li>
     <li><a href="https://materializecss.com">Material Design library</a></li>
@@ -52,11 +56,37 @@
 
 <h4><a name="structure">Структура</a>&nbsp;&nbsp;<a href="#menu">&#9650;</a></h4>
 <pre><code>.
+|-db
+|---scripts
+|-images
+|-src
+|---main
+|-----java
+|-------ru
+|---------reybos
+|-----------model
+|-----------service
+|-----------servlet
+|-----------store
+|-----resources
+|-----webapp
+|-------WEB-INF
+|-------css
+|-------js
+|-------template
+|---test
+|-----java
+|-------ru
+|---------reybos
+|-----------servlet
+|-----------store
+└-----resources
+
 </code></pre>
 
 <h4><a name="scheme">Схема БД</a>&nbsp;&nbsp;<a href="#menu">&#9650;</a></h4>
 <p align="center">
-  <!--<img src="images/1.png" height="400" title="схема БД">-->
+  <img src="images/4.png" height="400" title="схема БД">
 </p>
 
 <h2><a name="build">Сборка</a>&nbsp;&nbsp;<a href="#menu">&#9650;</a></h2>
@@ -111,7 +141,33 @@
 </ol>
 
 <h2><a name="usage">Использование</a>&nbsp;&nbsp;<a href="#menu">&#9650;</a></h2>
-<h3><a name=""></a>&nbsp;&nbsp;<a href="#menu">&#9650;</a></h3>
+<h3><a name="main_page">Главная</a>&nbsp;&nbsp;<a href="#menu">&#9650;</a></h3>
+<p>
+    Весь функционал приложения собран на главной странице. Здесь собрана информация о предстояющих и завершенных задачах.
+    Добавление/изменение/удаление пунктов в списке происходит здесь же. Есть два режима отображения. В первом показываются 
+    только заплонированные задачи, во втором запланированные и завершенные. 
+</p>
+<p align="center">
+  <img src="images/1.png" height="400" title="главная страница">
+</p>
+
+<h3><a name="item_status">Изменение статуса задачи</a>&nbsp;&nbsp;<a href="#menu">&#9650;</a></h3>
+<p>
+    Если задача выполнена, ее можно отметить как завершенную и тогда она пропадет из основного списка. Завершенную
+    задачу можно вернуть в основной писок поменяв ее статус. 
+</p>
+<p align="center">
+  <img src="images/2.png" height="400" title="изменение статуса задачи">
+</p>
+
+<h3><a name="item_notification">Оповещения об ошибках</a>&nbsp;&nbsp;<a href="#menu">&#9650;</a></h3>
+<p>
+    В системе предусмотрена система оповещения пользователей об ошибках с помощью модальных окон. 
+    В случае не правильной работы приложения или некорректно введенных пользователем данных, он будет извещен об этом.
+</p>
+<p align="center">
+  <img src="images/3.png" height="400" title="оповещения об ошибках">
+</p> 
 
 <h2><a name="links">Полезные ссылки</a>&nbsp;&nbsp;<a href="#menu">&#9650;</a></h2>
 <p>Ресурсы которые были полезны при создании проекта</p>

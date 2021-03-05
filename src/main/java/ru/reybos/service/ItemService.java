@@ -36,9 +36,7 @@ public class ItemService {
     private Function<Item, Boolean> update() {
         return item -> {
             Item itemDb = store.findItemById(item.getId());
-            if (item.isDone() != null) {
-                itemDb.setDone(item.isDone());
-            }
+            itemDb.setDone(item.isDone());
             return store.update(itemDb);
         };
     }

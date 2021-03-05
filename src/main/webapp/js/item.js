@@ -5,6 +5,10 @@ $(".js-show-all-task").change(function () {
 
 $(".js-add-todo-item").click(function () {
     let description = $(".js-item-description").val();
+    if (description === "") {
+        showModalError("Для добавления задачи необходимо заполнить все поля.");
+        return false;
+    }
     let data = {"description": description};
     $.ajax({
         type: "POST",
@@ -15,14 +19,20 @@ $(".js-add-todo-item").click(function () {
         showItems(data)
         refreshItemAddForm();
     }).fail(function(err) {
-        $(".js-modal-msg").text("Ошибка при добавлении элемента, перезагрузите страницу или повторите запрос позднее.");
         let instance = M.Modal.getInstance($(".js-modal"));
         instance.open();
+        showModalError("Ошибка при добавлении элемента, перезагрузите страницу или повторите запрос позднее.");
     });
 });
 
 function refreshItemAddForm() {
     $(".js-item-description").val("");
+}
+
+function showModalError(msg) {
+    $(".js-modal-msg").text(msg);
+    let instance = M.Modal.getInstance($(".js-modal"));
+    instance.open();
 }
 
 $(".js-main-container").on("click", ".js-item-delete", function() {
@@ -36,9 +46,7 @@ $(".js-main-container").on("click", ".js-item-delete", function() {
     }).done(function(data) {
         showItems(data)
     }).fail(function(err) {
-        $(".js-modal-msg").text("Ошибка при удалении элемента, перезагрузите страницу или повторите запрос позднее.");
-        let instance = M.Modal.getInstance($(".js-modal"));
-        instance.open();
+        showModalError("Ошибка при удалении элемента, перезагрузите страницу или повторите запрос позднее.");
     });
 });
 
@@ -54,8 +62,6 @@ $(".js-main-container").on("change", ".js-change-item-status", function() {
     }).done(function(data) {
         showItems(data)
     }).fail(function(err) {
-        $(".js-modal-msg").text("Ошибка при обновлении элемента, перезагрузите страницу или повторите запрос позднее.");
-        let instance = M.Modal.getInstance($(".js-modal"));
-        instance.open();
+        showModalError("Ошибка при обновлении элемента, перезагрузите страницу или повторите запрос позднее.");
     });
 });

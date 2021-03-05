@@ -89,6 +89,7 @@ public class ItemServletTest {
         when(resp.getOutputStream()).thenReturn(out);
 
         new ItemServlet().doPost(req, resp);
+        LOG.debug(store.findAllItem().toString());
         assertThat(store.findItemById(inputItem.getId()).isDone(), is(true));
     }
 
