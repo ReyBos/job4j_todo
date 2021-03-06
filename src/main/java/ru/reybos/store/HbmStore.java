@@ -2,12 +2,15 @@ package ru.reybos.store;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.query.Query;
 import ru.reybos.model.Item;
 
 import java.util.List;
+import java.util.function.Function;
 
 public class HbmStore implements Store, AutoCloseable {
     private static final Store INST = new HbmStore();
@@ -24,71 +27,79 @@ public class HbmStore implements Store, AutoCloseable {
 
     @Override
     public List<Item> findAllItem() {
-        String sql = "FROM ru.reybos.model.Item";
-        return findItemsByQuery(sql);
+        return tx(session -> {
+            String sql = "FROM ru.reybos.model.Item";
+            final Query query = session.createQuery(sql);
+            return query.list();
+        });
     }
 
     @Override
     public List<Item> findDoneItems() {
-        String sql = "FROM ru.reybos.model.Item WHERE done=true ORDER BY created";
-        return findItemsByQuery(sql);
+        return tx(session -> {
+            String sql = "FROM ru.reybos.model.Item WHERE done=true ORDER BY created";
+            final Query query = session.createQuery(sql);
+            return query.list();
+        });
     }
 
     @Override
     public List<Item> findUndoneItems() {
-        String sql = "FROM ru.reybos.model.Item WHERE done=false ORDER BY created";
-        return findItemsByQuery(sql);
+        return tx(session -> {
+            String sql = "FROM ru.reybos.model.Item WHERE done=false ORDER BY created";
+            final Query query = session.createQuery(sql);
+            return query.list();
+        });
     }
 
     @SuppressWarnings({"unchecked"})
-    private List<Item> findItemsByQuery(String sql) {
-        Session session = sf.openSession();
-        session.beginTransaction();
-        List<Item> result = (List<Item>) session.createQuery(sql).list();
-        session.getTransaction().commit();
-        session.close();
-        return result;
-    }
-
     @Override
     public Item findItemById(int id) {
-        Session session = sf.openSession();
-        session.beginTransaction();
-        Item result = session.get(Item.class, id);
-        session.getTransaction().commit();
-        session.close();
-        return result;
+        return tx(session -> {
+            final Query query = session.createQuery("FROM ru.reybos.model.Item WHERE id=:id");
+            query.setParameter("id", id);
+            List<Item> result = (List<Item>) query.list();
+            return result.size() == 0 ? null : result.get(0);
+        });
     }
 
     @Override
     public boolean save(Item item) {
-        Session session = sf.openSession();
-        session.beginTransaction();
-        session.save(item);
-        session.getTransaction().commit();
-        session.close();
-        return true;
+        return tx(session -> {
+            session.save(item);
+            return true;
+        });
     }
 
     @Override
-    public boolean delete(Item userItem) {
-        Item item = findItemById(userItem.getId());
-        Session session = sf.openSession();
-        session.beginTransaction();
-        session.delete(item);
-        session.getTransaction().commit();
-        session.close();
-        return true;
+    public boolean delete(Item item) {
+        return tx(session -> {
+            session.delete(item);
+            return true;
+        });
     }
 
     @Override
     public boolean update(Item item) {
-        Session session = sf.openSession();
-        session.beginTransaction();
-        session.update(item);
-        session.getTransaction().commit();
-        session.close();
-        return true;
+        return tx(session -> {
+            session.update(item);
+            return true;
+        });
+    }
+
+    private <T> T tx(final Function<Session, T> command) {
+        final Session session = sf.openSession();
+        final Transaction tx = session.beginTransaction();
+        try {
+            T rsl = command.apply(session);
+            tx.commit();
+            return rsl;
+        } catch (final Exception e) {
+            session.getTransaction().rollback();
+            throw e;
+        } finally {
+            session.close();
+        }
     }
 
     @Override

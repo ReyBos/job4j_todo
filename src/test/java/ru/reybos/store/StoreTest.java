@@ -13,6 +13,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 
 @RunWith(Parameterized.class)
@@ -91,5 +92,12 @@ public class StoreTest {
         assertThat(out, is(expected));
         store.delete(item);
         store.delete(item2);
+    }
+
+    @Test
+    public void whenFindByIdItemThenNull() {
+        Item item = new Item(1);
+        Item rsl = store.findItemById(item.getId());
+        assertNull(rsl);
     }
 }
