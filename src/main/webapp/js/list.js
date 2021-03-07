@@ -22,9 +22,11 @@ function showItems(data) {
     $(".js-done-items").html(doneItemsStr);
     let undoneItemsStr = drawItems(undoneItems);
     $(".js-undone-items").html(undoneItemsStr);
+    let doneItemsAllInfoStr = drawItems(undoneItems, true);
+    $(".js-undone-items-all-info").html(doneItemsAllInfoStr);
 }
 
-function drawItems(items) {
+function drawItems(items, showAllInfo = false) {
     let rsl = "";
     if (items.length === 0) {
         rsl += "<tr>" +
@@ -38,8 +40,11 @@ function drawItems(items) {
                                 "<input class=\"js-change-item-status\" type=\"checkbox\" data-item-id='" + item.id + "'  data-item-done=" + item.done + " " + (item.done ? "checked" : "") + ">" +
                                 "<span class=\"todo-description\">" + item.description + "</span>" +
                             "</label>" +
-                        "</td>" +
-                        "<td class=\"right-align\">" +
+                        "</td>";
+            if (showAllInfo) {
+                rsl +=  "<td>" + item.user.name + "</td>";
+            }
+            rsl +=      "<td class=\"right-align\">" +
                             "<a data-item-id='" + item.id + "' class=\"btn-floating btn-small waves-effect waves-light btn-delete js-item-delete\">+</a>" +
                         "</td>" +
                     "</tr>";

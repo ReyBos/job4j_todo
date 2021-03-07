@@ -12,24 +12,62 @@
     <title>Todo List</title>
 </head>
 <body>
-<nav>
-    <div class="nav-wrapper container page-title">
-        <a class="brand-logo">Todo List</a>
-    </div>
-</nav>
-<div class="container js-main-container">
-    <div class="center-align main-settings">
-        <label>
-            <input type="checkbox" class="items js-show-all-task">
-            <span class="todo-description">показывать завершенные задачи</span>
-        </label>
-    </div>
-    <div class="js-todo-list-container-all todo-list-container row" style="display: none;">
-        <div class="col s6">
+<div>
+    <nav>
+        <div class="nav-wrapper container">
+            <a class="brand-logo">Todo List</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li>
+                    <a href="logout">Выйти</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container js-main-container">
+        <div class="center-align main-settings">
+            <label>
+                <input type="checkbox" class="items js-show-all-task">
+                <span class="todo-description">показывать завершенные задачи</span>
+            </label>
+        </div>
+        <div class="js-todo-list-container-all todo-list-container row" style="display: none;">
+            <div class="col s6">
+                <h5 class="center-align">сделать</h5>
+                <div class="card">
+                    <table>
+                        <tbody class="js-undone-items">
+                            <tr>
+                                <td class="center-align">список пуст</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col s6">
+                <h5 class="center-align">сделано</h5>
+                <div class="card">
+                    <table>
+                        <tbody class="js-done-items">
+                            <tr>
+                                <td class="center-align">список пуст</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="js-todo-list-container-main todo-list-container row">
             <h5 class="center-align">сделать</h5>
-            <div class="card">
+            <div class="col s10 offset-s1 card">
                 <table>
-                    <tbody class="js-undone-items">
+                    <thead>
+                        <tr>
+                            <th>задача</th>
+                            <th>автор</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody class="js-undone-items-all-info">
                         <tr>
                             <td class="center-align">список пуст</td>
                         </tr>
@@ -37,56 +75,32 @@
                 </table>
             </div>
         </div>
-        <div class="col s6">
-            <h5 class="center-align">сделано</h5>
-            <div class="card">
-                <table>
-                    <tbody class="js-done-items">
-                        <tr>
-                            <td class="center-align">список пуст</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-    <div class="js-todo-list-container-main todo-list-container row">
-        <h5 class="center-align">сделать</h5>
-        <div class="col s8 offset-s2 card">
-            <table>
-                <tbody class="js-undone-items">
-                    <tr>
-                        <td class="center-align">список пуст</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <div class="row js-todo-form-container todo-form-container">
-        <h5 class="center-align">новая задача</h5>
-        <div class="card col s6 offset-s3">
-            <div class="card-content">
-                <div class="row">
-                    <div class="input-field col s12">
-                        <textarea placeholder="" id="item-description" name="item-description" class="materialize-textarea js-item-description" rows="2"></textarea>
-                        <label class="" for="item-description">описание</label>
+        <div class="row js-todo-form-container todo-form-container">
+            <h5 class="center-align">новая задача</h5>
+            <div class="card col s6 offset-s3">
+                <div class="card-content">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <textarea placeholder="" id="item-description" name="item-description" class="materialize-textarea js-item-description" rows="2"></textarea>
+                            <label class="" for="item-description">описание</label>
+                        </div>
+                    </div>
+                    <div class="row">
                     </div>
                 </div>
-                <div class="row">
+                <div class="card-action right-align">
+                    <button class="btn waves-effect waves-light btn-small js-add-todo-item" type="button">Добавить</button>
                 </div>
-            </div>
-            <div class="card-action right-align">
-                <button class="btn waves-effect waves-light btn-small js-add-todo-item" type="button">Добавить</button>
             </div>
         </div>
     </div>
-</div>
-<div id="modal1" class="modal js-modal modal-custom">
-    <div class="modal-content js-modal-content">
-        <p class="js-modal-msg center-align"></p>
-    </div>
-    <div class="modal-footer">
-        <a href="#!" class="modal-close waves-effect waves-green btn-flat">Ok</a>
+    <div id="modal1" class="modal js-modal modal-custom">
+        <div class="modal-content js-modal-content">
+            <p class="js-modal-msg center-align"></p>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Ok</a>
+        </div>
     </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>

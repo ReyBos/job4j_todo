@@ -8,6 +8,7 @@ import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.query.Query;
 import ru.reybos.model.Item;
+import ru.reybos.model.User;
 
 import java.util.List;
 import java.util.function.Function;
@@ -58,8 +59,7 @@ public class HbmStore implements Store, AutoCloseable {
         return tx(session -> {
             final Query query = session.createQuery("FROM ru.reybos.model.Item WHERE id=:id");
             query.setParameter("id", id);
-            List<Item> result = (List<Item>) query.list();
-            return result.size() == 0 ? null : result.get(0);
+            return (Item) query.uniqueResult();
         });
     }
 
@@ -83,6 +83,32 @@ public class HbmStore implements Store, AutoCloseable {
     public boolean update(Item item) {
         return tx(session -> {
             session.update(item);
+            return true;
+        });
+    }
+
+    @Override
+    public User findUserByEmail(String email) {
+        return tx(session -> {
+            String sql = "FROM ru.reybos.model.User WHERE email=:email";
+            final Query query = session.createQuery(sql);
+            query.setParameter("email", email);
+            return (User) query.uniqueResult();
+        });
+    }
+
+    @Override
+    public boolean save(User user) {
+        return tx(session -> {
+            session.save(user);
+            return true;
+        });
+    }
+
+    @Override
+    public boolean delete(User user) {
+        return tx(session -> {
+            session.delete(user);
             return true;
         });
     }

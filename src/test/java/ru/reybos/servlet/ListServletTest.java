@@ -10,7 +10,8 @@ import org.powermock.modules.junit4.PowerMockRunner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.reybos.model.Item;
-import ru.reybos.service.TodoListService;
+import ru.reybos.model.User;
+import ru.reybos.service.ListService;
 import ru.reybos.store.HbmStore;
 import ru.reybos.store.MemStore;
 import ru.reybos.store.Store;
@@ -35,9 +36,11 @@ public class ListServletTest {
     @Test
     public void getItems() throws Exception {
         Store store = MemStore.instOf();
-        Item item1 = new Item("задание 1", true);
-        Item item2 = new Item("задание 2", false);
-        Item item3 = new Item("задание 3", true);
+        User user = User.of("user", "email", "password");
+        store.save(user);
+        Item item1 = Item.of("задание 1", true, user);
+        Item item2 = Item.of("задание 2", false, user);
+        Item item3 = Item.of("задание 3", true, user);
         store.save(item1);
         store.save(item2);
         store.save(item3);
@@ -56,7 +59,7 @@ public class ListServletTest {
 
         new ListServlet().doGet(req, resp);
 
-        TodoListService service = new TodoListService(store);
+        ListService service = new ListService(store);
         assertThat(stringWriter.toString(), is(service.getAllItems()));
         store.delete(item1);
         store.delete(item2);

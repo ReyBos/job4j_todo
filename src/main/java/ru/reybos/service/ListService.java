@@ -11,11 +11,11 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-public class TodoListService {
+public class ListService {
     private static final Logger LOG = LoggerFactory.getLogger(ItemService.class.getName());
     private final Store store;
 
-    public TodoListService(Store store) {
+    public ListService(Store store) {
         this.store = store;
     }
 

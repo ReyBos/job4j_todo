@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.reybos.model.Item;
+import ru.reybos.model.User;
 import ru.reybos.service.ItemService;
 import ru.reybos.store.HbmStore;
 import ru.reybos.store.Store;
@@ -28,6 +29,8 @@ public class ItemServlet extends HttpServlet {
         req.setCharacterEncoding("UTF-8");
         String action = req.getParameter("action");
         Item item = new Gson().fromJson(req.getReader(), Item.class);
+        User user = (User) req.getSession().getAttribute("user");
+        item.setUser(user);
         resp.setCharacterEncoding("UTF-8");
         PrintWriter writer = new PrintWriter(resp.getOutputStream());
         if (service.execute(action, item)) {

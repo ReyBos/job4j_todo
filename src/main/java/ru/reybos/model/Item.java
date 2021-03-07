@@ -15,25 +15,16 @@ public class Item implements Serializable {
     private Timestamp created = new Timestamp(System.currentTimeMillis());
     private boolean done = false;
 
-    public Item() {
-    }
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
-    public Item(int id) {
-        this.id = id;
-    }
-
-    public Item(String description) {
-        this.description = description;
-    }
-
-    public Item(int id, boolean done) {
-        this.id = id;
-        this.done = done;
-    }
-
-    public Item(String description, boolean done) {
-        this.description = description;
-        this.done = done;
+    public static Item of(String description, boolean done, User user) {
+        Item item = new Item();
+        item.setDescription(description);
+        item.setDone(done);
+        item.setUser(user);
+        return item;
     }
 
     public int getId() {
@@ -66,6 +57,14 @@ public class Item implements Serializable {
 
     public void setDone(boolean done) {
         this.done = done;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override

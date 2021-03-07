@@ -1,0 +1,8 @@
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    name TEXT NOT NULL,
+    email TEXT NOT NULL,
+    password TEXT NOT NULL
+);
+
+ALTER TABLE item ADD COLUMN user_id INT REFERENCES users(id) ON DELETE CASCADE;

@@ -9,5 +9,6 @@
         <property name="hibernate.hbm2ddl.auto">update</property>
 
         <mapping class="ru.reybos.model.Item" />
+        <mapping class="ru.reybos.model.User" />
     </session-factory>
 </hibernate-configuration>

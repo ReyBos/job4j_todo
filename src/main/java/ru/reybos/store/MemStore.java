@@ -1,6 +1,7 @@
 package ru.reybos.store;
 
 import ru.reybos.model.Item;
+import ru.reybos.model.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,8 +12,10 @@ import java.util.stream.Collectors;
 
 public class MemStore implements Store {
     private static final Store INST = new MemStore();
-    private final Map<Integer, Item> data = new ConcurrentHashMap<>();
-    private AtomicInteger id = new AtomicInteger(1);
+    private final Map<Integer, Item> items = new ConcurrentHashMap<>();
+    private final Map<Integer, User> users = new ConcurrentHashMap<>();
+    private final AtomicInteger itemId = new AtomicInteger(1);
+    private final AtomicInteger userId = new AtomicInteger(1);
 
     private MemStore() { }
 
@@ -22,48 +25,70 @@ public class MemStore implements Store {
 
     @Override
     public List<Item> findAllItem() {
-        return new ArrayList<>(data.values());
+        return new ArrayList<>(items.values());
     }
 
     @Override
     public List<Item> findDoneItems() {
-        return data.values().stream()
+        return items.values().stream()
                 .filter(Item::isDone)
                 .collect(Collectors.toList());
     }
 
     @Override
     public List<Item> findUndoneItems() {
-        return data.values().stream()
+        return items.values().stream()
                 .filter(item -> !item.isDone())
                 .collect(Collectors.toList());
     }
 
     @Override
     public Item findItemById(int id) {
-        return data.get(id);
+        return items.get(id);
     }
 
     @Override
     public boolean save(Item item) {
-        item.setId(id.getAndIncrement());
-        data.put(item.getId(), item);
+        item.setId(itemId.getAndIncrement());
+        items.put(item.getId(), item);
         return true;
     }
 
     @Override
     public boolean delete(Item item) {
         int id = item.getId();
-        return data.remove(id, item);
+        return items.remove(id, item);
     }
 
     @Override
     public boolean update(Item item) {
         int id = item.getId();
-        if (!data.containsKey(id)) {
+        if (!items.containsKey(id)) {
             return false;
         }
-        data.put(id, item);
+        items.put(id, item);
         return true;
+    }
+
+    @Override
+    public User findUserByEmail(String email) {
+        for (User user : users.values()) {
+            if (user.getEmail().equals(email)) {
+                return user;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public boolean save(User user) {
+        user.setId(userId.getAndIncrement());
+        users.put(user.getId(), user);
+        return false;
+    }
+
+    @Override
+    public boolean delete(User user) {
+        return users.remove(user.getId(), user);
     }
 }

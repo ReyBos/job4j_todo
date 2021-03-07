@@ -6,6 +6,7 @@ import org.junit.runners.Parameterized;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.reybos.model.Item;
+import ru.reybos.model.User;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -13,8 +14,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.*;
 
 @RunWith(Parameterized.class)
 public class StoreTest {
@@ -34,30 +34,54 @@ public class StoreTest {
     }
 
     @Test
+    public void saveAndFindUser() {
+        User user = User.of("user", "email", "password");
+        store.save(user);
+        User userDb = store.findUserByEmail(user.getEmail());
+        assertThat(userDb, is(user));
+        store.delete(user);
+    }
+
+    @Test
     public void saveItem() {
-        Item item = new Item("сделать что-то", true);
+        User user = User.of("user", "email", "password");
+        store.save(user);
+        Item item = Item.of("описание", true, user);
         store.save(item);
         Item rsl = store.findItemById(item.getId());
         assertThat(rsl, is(item));
+        assertThat(rsl.getUser(), is(user));
         store.delete(item);
+        store.delete(user);
     }
 
     @Test
     public void updateItem() {
-        Item item = new Item("сделать что-то", true);
+        User user = User.of("user", "email", "password");
+        User user2 = User.of("user2", "email2", "password2");
+        store.save(user);
+        store.save(user2);
+        Item item = Item.of("описание", true, user);
         store.save(item);
-        item.setDescription("не сделали");
-        item.setDone(false);
+        item.setDescription("новое описание");
+        item.setDone(true);
+        item.setUser(user2);
         store.update(item);
         Item rsl = store.findItemById(item.getId());
-        assertThat(rsl, is(item));
+        assertThat(rsl.getDescription(), is("новое описание"));
+        assertTrue(rsl.isDone());
+        assertThat(rsl.getUser(), is(user2));
         store.delete(item);
+        store.delete(user);
+        store.delete(user2);
     }
 
     @Test
     public void findAllItem() {
-        Item item = new Item("сделать что-то", true);
-        Item item2 = new Item("сделать что-то 2", false);
+        User user = User.of("user", "email", "password");
+        Item item = Item.of("описание", true, user);
+        Item item2 = Item.of("описание2", false, user);
+        store.save(user);
         store.save(item);
         store.save(item2);
         List<Item> expected = List.of(item, item2);
@@ -66,12 +90,15 @@ public class StoreTest {
         assertThat(out, is(expected));
         store.delete(item);
         store.delete(item2);
+        store.delete(user);
     }
 
     @Test
     public void findDoneItems() {
-        Item item = new Item("сделать что-то", true);
-        Item item2 = new Item("сделать что-то 2", false);
+        User user = User.of("user", "email", "password");
+        Item item = Item.of("описание", true, user);
+        Item item2 = Item.of("описание2", false, user);
+        store.save(user);
         store.save(item);
         store.save(item2);
         List<Item> expected = List.of(item);
@@ -79,12 +106,15 @@ public class StoreTest {
         assertThat(out, is(expected));
         store.delete(item);
         store.delete(item2);
+        store.delete(user);
     }
 
     @Test
     public void findUndoneItems() {
-        Item item = new Item("сделать что-то", true);
-        Item item2 = new Item("сделать что-то 2", false);
+        User user = User.of("user", "email", "password");
+        Item item = Item.of("описание", true, user);
+        Item item2 = Item.of("описание2", false, user);
+        store.save(user);
         store.save(item);
         store.save(item2);
         List<Item> expected = List.of(item2);
@@ -92,11 +122,13 @@ public class StoreTest {
         assertThat(out, is(expected));
         store.delete(item);
         store.delete(item2);
+        store.delete(user);
     }
 
     @Test
     public void whenFindByIdItemThenNull() {
-        Item item = new Item(1);
+        Item item = new Item();
+        item.setId(1);
         Item rsl = store.findItemById(item.getId());
         assertNull(rsl);
     }

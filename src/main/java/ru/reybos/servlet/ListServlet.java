@@ -2,7 +2,7 @@ package ru.reybos.servlet;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ru.reybos.service.TodoListService;
+import ru.reybos.service.ListService;
 import ru.reybos.store.HbmStore;
 import ru.reybos.store.Store;
 
@@ -18,7 +18,7 @@ import java.io.PrintWriter;
 public class ListServlet extends HttpServlet {
     private static final Logger LOG = LoggerFactory.getLogger(ItemServlet.class.getName());
     private final Store store = HbmStore.instOf();
-    private final TodoListService service = new TodoListService(store);
+    private final ListService service = new ListService(store);
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
