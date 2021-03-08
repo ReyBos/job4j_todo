@@ -59,7 +59,7 @@ public class ListServletTest {
 
         new ListServlet().doGet(req, resp);
 
-        ListService service = new ListService(store);
+        ListService service = ListService.getInstance();
         assertThat(stringWriter.toString(), is(service.getAllItems()));
         store.delete(item1);
         store.delete(item2);

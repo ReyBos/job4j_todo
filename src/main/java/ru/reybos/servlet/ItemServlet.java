@@ -6,8 +6,6 @@ import org.slf4j.LoggerFactory;
 import ru.reybos.model.Item;
 import ru.reybos.model.User;
 import ru.reybos.service.ItemService;
-import ru.reybos.store.HbmStore;
-import ru.reybos.store.Store;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,12 +18,11 @@ import java.io.PrintWriter;
 @WebServlet("/item")
 public class ItemServlet extends HttpServlet {
     private static final Logger LOG = LoggerFactory.getLogger(ItemServlet.class.getName());
-    private final Store store = HbmStore.instOf();
-    private final ItemService service = new ItemService(store).init();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
+        ItemService service = ItemService.getInstance();
         req.setCharacterEncoding("UTF-8");
         String action = req.getParameter("action");
         Item item = new Gson().fromJson(req.getReader(), Item.class);

@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.reybos.model.Item;
+import ru.reybos.store.HbmStore;
 import ru.reybos.store.Store;
 
 import java.util.LinkedHashMap;
@@ -12,11 +13,17 @@ import java.util.List;
 import java.util.Map;
 
 public class ListService {
-    private static final Logger LOG = LoggerFactory.getLogger(ItemService.class.getName());
-    private final Store store;
+    private static final Logger LOG = LoggerFactory.getLogger(ListService.class.getName());
+    private final Store store = HbmStore.instOf();
 
-    public ListService(Store store) {
-        this.store = store;
+    private ListService() { }
+
+    public static ListService getInstance() {
+        return ListService.Holder.INSTANCE;
+    }
+
+    private static final class Holder {
+        private static final ListService INSTANCE = new ListService();
     }
 
     public String getAllItems() {
