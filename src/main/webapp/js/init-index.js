@@ -1,6 +1,11 @@
 $(document).ready(function() {
-    getListItems();
+    initPage();
 });
+
+function initPage() {
+    getListItems();
+    getCategories();
+}
 
 function getListItems() {
     $.ajax({
@@ -10,6 +15,19 @@ function getListItems() {
         showItems(data)
     }).fail(function(err) {
         $(".js-modal-msg").text("Ошибка загрузки списка, перезагрузите страницу или повторите запрос позднее.");
+        let instance = M.Modal.getInstance($(".js-modal"));
+        instance.open();
+    });
+}
+
+function getCategories() {
+    $.ajax({
+        type: "GET",
+        url: "category"
+    }).done(function(data) {
+        showCategories(data)
+    }).fail(function(err) {
+        $(".js-modal-msg").text("Ошибка загрузки категорий, перезагрузите страницу или повторите запрос позднее.");
         let instance = M.Modal.getInstance($(".js-modal"));
         instance.open();
     });
@@ -43,6 +61,11 @@ function drawItems(items, showAllInfo = false) {
                         "</td>";
             if (showAllInfo) {
                 rsl +=  "<td>" + item.user.name + "</td>";
+                rsl +=  "<td>";
+                item.categories.forEach(function (category) {
+                    rsl += '<div class="chip">' + category.name + '</div>';
+                })
+                rsl +=  "</td>";
             }
             rsl +=      "<td class=\"right-align\">" +
                             "<a data-item-id='" + item.id + "' class=\"btn-floating btn-small waves-effect waves-light btn-delete js-item-delete\">+</a>" +
@@ -51,4 +74,14 @@ function drawItems(items, showAllInfo = false) {
         });
     }
     return rsl;
+}
+
+function showCategories(data) {
+    let categories = JSON.parse(data.category);
+    categories.forEach(function (category) {
+        let str = '<option value="' + category.id + '">' + category.name + '</option>';
+        $(".js-item-category").append(str);
+    })
+    $('.js-item-category').formSelect();
+    $(".js-add-todo-item").prop("disabled", false);
 }

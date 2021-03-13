@@ -64,12 +64,13 @@
                         <tr>
                             <th>задача</th>
                             <th>автор</th>
+                            <th>категории</th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody class="js-undone-items-all-info">
                         <tr>
-                            <td class="center-align">список пуст</td>
+                            <td class="center-align" colspan="4">список пуст</td>
                         </tr>
                     </tbody>
                 </table>
@@ -86,10 +87,14 @@
                         </div>
                     </div>
                     <div class="row">
+                        <div class="input-field col s12">
+                            <select multiple class="js-item-category"></select>
+                            <label>выберите категории</label>
+                        </div>
                     </div>
                 </div>
                 <div class="card-action right-align">
-                    <button class="btn waves-effect waves-light btn-small js-add-todo-item" type="button">Добавить</button>
+                    <button class="btn waves-effect waves-light btn-small js-add-todo-item" type="button" disabled>Добавить</button>
                 </div>
             </div>
         </div>
@@ -106,7 +111,7 @@
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script type="text/javascript" src="js/materialize.min.js"></script>
 <script type="text/javascript" src="js/item.js"></script>
-<script type="text/javascript" src="js/list.js"></script>
+<script type="text/javascript" src="js/init-index.js"></script>
 <script>
     $(document).ready(function(){
         $('.js-modal').modal();

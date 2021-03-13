@@ -10,5 +10,6 @@
 
         <mapping class="ru.reybos.model.Item" />
         <mapping class="ru.reybos.model.User" />
+        <mapping class="ru.reybos.model.Category" />
     </session-factory>
 </hibernate-configuration>

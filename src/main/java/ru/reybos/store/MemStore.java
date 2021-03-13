@@ -1,5 +1,6 @@
 package ru.reybos.store;
 
+import ru.reybos.model.Category;
 import ru.reybos.model.Item;
 import ru.reybos.model.User;
 
@@ -14,6 +15,7 @@ public class MemStore implements Store {
     private static final Store INST = new MemStore();
     private final Map<Integer, Item> items = new ConcurrentHashMap<>();
     private final Map<Integer, User> users = new ConcurrentHashMap<>();
+    private final Map<Integer, Category> categories = new ConcurrentHashMap<>();
     private final AtomicInteger itemId = new AtomicInteger(1);
     private final AtomicInteger userId = new AtomicInteger(1);
 
@@ -90,5 +92,10 @@ public class MemStore implements Store {
     @Override
     public boolean delete(User user) {
         return users.remove(user.getId(), user);
+    }
+
+    @Override
+    public List<Category> getAllCategories() {
+        return new ArrayList<>(categories.values());
     }
 }

@@ -1,11 +1,15 @@
 package ru.reybos.service;
 
+import com.google.gson.Gson;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.reybos.model.Item;
+import ru.reybos.model.User;
 import ru.reybos.store.HbmStore;
 import ru.reybos.store.Store;
 
+import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
@@ -49,7 +53,11 @@ public class ItemService {
         return store::delete;
     }
 
-    public boolean execute(String action, Item item) {
+    public boolean execute(HttpServletRequest request) throws IOException {
+        String action = request.getParameter("action");
+        Item item = new Gson().fromJson(request.getReader(), Item.class);
+        User user = (User) request.getSession().getAttribute("user");
+        item.setUser(user);
         return dispatch.get(action).apply(item);
     }
 }

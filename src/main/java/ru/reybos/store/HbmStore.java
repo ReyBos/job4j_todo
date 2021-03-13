@@ -7,6 +7,7 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.query.Query;
+import ru.reybos.model.Category;
 import ru.reybos.model.Item;
 import ru.reybos.model.User;
 
@@ -29,7 +30,10 @@ public class HbmStore implements Store, AutoCloseable {
     @Override
     public List<Item> findAllItem() {
         return tx(session -> {
-            String sql = "FROM ru.reybos.model.Item";
+            String sql = "SELECT DISTINCT item"
+                    + " FROM ru.reybos.model.Item item"
+                    + " LEFT JOIN FETCH item.categories"
+                    + " ORDER BY item.created";
             final Query query = session.createQuery(sql);
             return query.list();
         });
@@ -38,7 +42,10 @@ public class HbmStore implements Store, AutoCloseable {
     @Override
     public List<Item> findDoneItems() {
         return tx(session -> {
-            String sql = "FROM ru.reybos.model.Item WHERE done=true ORDER BY created";
+            String sql = "SELECT DISTINCT item"
+                    + " FROM ru.reybos.model.Item item"
+                    + " LEFT JOIN FETCH item.categories "
+                    + " WHERE item.done=true ORDER BY item.created";
             final Query query = session.createQuery(sql);
             return query.list();
         });
@@ -47,7 +54,10 @@ public class HbmStore implements Store, AutoCloseable {
     @Override
     public List<Item> findUndoneItems() {
         return tx(session -> {
-            String sql = "FROM ru.reybos.model.Item WHERE done=false ORDER BY created";
+            String sql = "SELECT DISTINCT item"
+                    + " FROM ru.reybos.model.Item item"
+                    + " LEFT JOIN FETCH item.categories "
+                    + " WHERE item.done=false ORDER BY item.created";
             final Query query = session.createQuery(sql);
             return query.list();
         });
@@ -110,6 +120,15 @@ public class HbmStore implements Store, AutoCloseable {
         return tx(session -> {
             session.delete(user);
             return true;
+        });
+    }
+
+    @Override
+    public List<Category> getAllCategories() {
+        return tx(session -> {
+            String sql = "FROM ru.reybos.model.Category";
+            final Query query = session.createQuery(sql);
+            return query.list();
         });
     }
 

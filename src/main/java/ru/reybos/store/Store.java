@@ -1,5 +1,6 @@
 package ru.reybos.store;
 
+import ru.reybos.model.Category;
 import ru.reybos.model.Item;
 import ru.reybos.model.User;
 
@@ -25,4 +26,6 @@ public interface Store {
     boolean save(User user);
 
     boolean delete(User user);
+
+    List<Category> getAllCategories();
 }

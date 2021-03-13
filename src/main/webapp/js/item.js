@@ -9,7 +9,17 @@ $(".js-add-todo-item").click(function () {
         showModalError("Для добавления задачи необходимо заполнить все поля.");
         return false;
     }
-    let data = {"description": description};
+    let data = {
+        "description": description
+    };
+    let categoriesIds = $(".js-item-category").val();
+    if (categoriesIds.length !== 0) {
+        let categories = [];
+        categoriesIds.forEach(function (categoryId) {
+            categories.push({id: categoryId})
+        })
+        data["categories"] = categories;
+    }
     $.ajax({
         type: "POST",
         url: "item?action=save",
@@ -27,6 +37,8 @@ $(".js-add-todo-item").click(function () {
 
 function refreshItemAddForm() {
     $(".js-item-description").val("");
+    $(".js-item-category").val([]);
+    $('.js-item-category').formSelect();
 }
 
 function showModalError(msg) {
