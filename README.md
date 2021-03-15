@@ -137,7 +137,7 @@
     </li>
     <li>
         После запуска сервера приложение будет доступно по адресу<br>
-        <a href="http://localhost:8080/cinema/">http://localhost:8080/todo/</a>
+        <a href="http://localhost:8080/todo/">http://localhost:8080/todo/</a>
     </li>
 </ol>
 
