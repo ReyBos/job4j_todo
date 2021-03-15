@@ -111,7 +111,7 @@
     </li>
     <li>
         Добавьте настройки для доступа к базе данных, для этого внесите соответствующие изменения в файле 
-        <code>src/main/resources/db.properties</code><br>
+        <code>src/main/resources/hibernate.cfg.xml</code><br>
         и в файле конфигурации проекта <code>pom.xml</code>
     
 ``` 
